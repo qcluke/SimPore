@@ -8,10 +8,7 @@ Find SimPore in our paper
 ---------------
 
 ## Flowchart
-
-
-
-
+[Flowchart.pdf](https://github.com/user-attachments/files/26133186/Flowchart.pdf)
 
 ## Step 1. Basecalling and Demultiplexing
 Software: Dorado https://software-docs.nanoporetech.com/dorado/latest/
@@ -128,9 +125,9 @@ Software: Vsearch https://github.com/torognes/vsearch
 
 ```sh
 vsearch --usearch_global /PATH/TO/TRAMSFORMED_DIRECTORY/POOL.fasta \
-    --db /PATH/TO/OUTPUT_DIRECTORY/OTU.fasta \
-    --id 0.97 \
-    --otutabout /PATH/TO/OUTPUT_DIRECTORY/COUNT_TABLE.tsv
+  --db /PATH/TO/OUTPUT_DIRECTORY/OTU.fasta \
+  --id 0.97 \
+  --otutabout /PATH/TO/OUTPUT_DIRECTORY/COUNT_TABLE.tsv
 ```
 
 ## Step 8. Consensus Sequence Import
