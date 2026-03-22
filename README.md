@@ -10,7 +10,7 @@ Find SimPore in our paper
 ## Flowchart
 <img src="https://raw.githubusercontent.com/qcluke/SimPore/main/Flowchart.png" width="900" />
 
-## Step 1. Basecalling and Demultiplexing
+## Step 1.1 Basecalling and Demultiplexing
 Software: Dorado https://software-docs.nanoporetech.com/dorado/latest/
 
 ```sh
@@ -21,19 +21,18 @@ dorado basecaller \
   --kit-name KIT \
   --emit-fastq \
   --no-trim \
-  --output-dir /PATH/TO/DEMULTIPLXED_DIRECTORY/
+  --output-dir /PATH/TO/BASECALLED_DEMULTIPLXED_DIRECTORY/
 
 ```
 * Remember to isolate unclassified file
 
-## Step 2. Primer Trimming
+## Step 1.2 Primer Trimming
 Software: Cutadapt https://cutadapt.readthedocs.io/en/stable/
 
 ```sh
 for item in /PATH/TO/DEMULTIPLXED_DIRECTORY/*; do
-  barcode=${i##*_}
-  barcode=${barcode%.fastq} 
-  input_file="/PATH/TO/DEMULTIPLXED_DIRECTORY/PREFIX_${barcode}.fastq"
+  barcode=$(basename "$item")
+  input_file="/PATH/TO/BASECALLED_DEMULTIPLXED_DIRECTORY/${barcode}.fastq"
   output_file="/PATH/TO/TRIMMED_DIRECTORY/${barcode}.fastq"
   log_file="PATH/TO/TRIMMED_DIRECTORY/LOG.txt"
   echo "========== Trimming ${barcode} =========="
@@ -42,14 +41,17 @@ for item in /PATH/TO/DEMULTIPLXED_DIRECTORY/*; do
     --adapter FORWARD_PRIMER...REVERSED_COMPLEMENTARY_REVERSE_PRIMER \
     --revcomp \
     --error-rate 0.3 \
+    --match-read-wildcards \
     --action trim \
     --discard-untrimmed \
+    --minimum-length NUMBER \
+    --maximum-length NUMBER \
     --report=full \
     --output ${output_file} >> ${log_file}
 done
 ```
 
-## Step 3. Length and Quality Filtering
+## Step 1.3 Length and Quality Filtering
 Software: Chopper https://github.com/wdecoster/chopper
 
 ```sh
@@ -67,7 +69,7 @@ for item in //PATH/TO/TRIMMED_DIRECTORY/*; do
 done
 ```
 
-## Step 4. Transformation and Dereplication
+## Step 2.1 Transformation and Dereplication
 Software: Vsearch https://github.com/torognes/vsearch
 
 ```sh
@@ -97,7 +99,7 @@ vsearch --derep_fulllength /PATH/TO/TRAMSFORMED_DIRECTORY/POOL.fasta \
   --uc /PATH/TO/DEREPLICATED_DIRECTORY/DEREPLICATION.uc
 ```
 
-## Step 5. Clustering
+## Step 2.2 Clustering
 Software: Vsearch https://github.com/torognes/vsearch
 
 ```sh
@@ -110,7 +112,7 @@ vsearch --cluster_size /PATH/TO/DEREPLICATED_DIRECTORY/UNIQUE.fasta \
   --uc /PATH/TO/CLUSTERED_DIRECTORY/CLUSTERING.uc
 ```
 
-## Step 6. Chimera Removal
+## Step 2.3 Chimera Removal
 Software: Vsearch https://github.com/torognes/vsearch
 
 ```sh
@@ -120,7 +122,7 @@ vsearch --uchime_denovo /PATH/TO/CLUSTERED_DIRECTORY/CLUSTER.fasta \
   --relabel otu.
 ```
 
-## Step 7. Count Table Generation
+## Step 2.4 Count Table Generation
 Software: Vsearch https://github.com/torognes/vsearch
 
 ```sh
@@ -130,7 +132,7 @@ vsearch --usearch_global /PATH/TO/TRAMSFORMED_DIRECTORY/POOL.fasta \
   --otutabout /PATH/TO/OUTPUT_DIRECTORY/COUNT_TABLE.tsv
 ```
 
-## Step 8. Consensus Sequence Import
+## Step 3.1 Consensus Sequence Import
 Software: Qiime 2 https://amplicon-docs.qiime2.org/en/stable/
 
 ```sh
@@ -140,7 +142,7 @@ Qiime tools import \
   --output-path /PATH/TO/TAXONOMY_DIRECTORY/OTU.qza
 ```
 
-## Step 9. Reference Datebase Extraction
+## Step 3.2 Reference Datebase Extraction
 Software: Qiime 2 https://amplicon-docs.qiime2.org/en/stable/
 
 ```sh
@@ -152,7 +154,7 @@ qiime feature-classifier extract-reads \
   --o-reads /PATH/TO/TAXONOMY_DIRECTORY/REFERENCE_SEQUENCE.qza 
 ```
 
-## Step 10. Classifier Traning
+## Step 3.3 Classifier Traning
 Software: Qiime 2 https://amplicon-docs.qiime2.org/en/stable/
 
 ```sh
@@ -162,7 +164,7 @@ qiime feature-classifier fit-classifier-naive-bayes \
   --o-classifier /PATH/TO/TAXONOMY_DIRECTORY/CLASSIFIER.qza
 ```
 
-## Step 11. Taxonomic Assignment
+## Step 3.4 Taxonomic Assignment
 Software: Qiime 2 https://amplicon-docs.qiime2.org/en/stable/
 
 ```sh
@@ -173,7 +175,7 @@ qiime feature-classifier classify-sklearn \
   --o-classification /PATH/TO/TAXONOMY_DIRECTORY/TAXONOMY.qza
 ```
 
-## Step 12. Taxonomic Table Generation
+## Step 3.5 Taxonomic Table Generation
 Software: Qiime 2 https://amplicon-docs.qiime2.org/en/stable/
 
 ```sh
