@@ -8,7 +8,7 @@ Find SimPore in our paper
 ---------------
 
 ## Flowchart
-<img src="https://raw.githubusercontent.com/qcluke/SimPore/main/Flowchart.png" width="900" />
+<img src="https://raw.githubusercontent.com/qcluke/SimPore/main/Flowchart.png" width="1000" />
 
 ## Step 1.1 Basecalling and Demultiplexing
 Software: Dorado https://software-docs.nanoporetech.com/dorado/latest/
@@ -56,7 +56,8 @@ Software: Chopper https://github.com/wdecoster/chopper
 
 ```sh
 for item in //PATH/TO/TRIMMED_DIRECTORY/*; do
-  barcode=${barcode%.fastq} 
+  barcode=$(basename "$item")
+  barcode=${barcode%.fastq}
   input_file="/PATH/TO/TRIMMED_DIRECTORY/${barcode}.fastq"
   output_file="/PATH/TO/FILTERED_DIRECTORY/${barcode}.fastq"
   echo "========== Filtering ${barcode} =========="
