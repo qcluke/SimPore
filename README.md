@@ -32,11 +32,11 @@ Software: Cutadapt https://cutadapt.readthedocs.io/en/stable/
 ```sh
 for item in /PATH/TO/DEMULTIPLXED_DIRECTORY/*; do
   barcode=$(basename "$item")
-  input_file="/PATH/TO/BASECALLED_DEMULTIPLXED_DIRECTORY/${barcode}.fastq"
-  output_file="/PATH/TO/TRIMMED_DIRECTORY/${barcode}.fastq"
-  log_file="PATH/TO/TRIMMED_DIRECTORY/LOG.txt"
+  input="/PATH/TO/BASECALLED_DEMULTIPLXED_DIRECTORY/${barcode}.fastq"
+  output="/PATH/TO/TRIMMED_DIRECTORY/${barcode}.fastq"
+  log="PATH/TO/TRIMMED_DIRECTORY/LOG.txt"
   echo "========== Trimming ${barcode} =========="
-  cutadapt ${input_file} \
+  cutadapt ${input} \
     --cores NUMBER \
     --adapter FORWARD_PRIMER...REVERSED_COMPLEMENTARY_REVERSE_PRIMER \
     --revcomp \
@@ -47,7 +47,7 @@ for item in /PATH/TO/DEMULTIPLXED_DIRECTORY/*; do
     --minimum-length NUMBER \
     --maximum-length NUMBER \
     --report=full \
-    --output ${output_file} >> ${log_file}
+    --output ${output} >> ${log}
 done
 ```
 
@@ -58,15 +58,15 @@ Software: Chopper https://github.com/wdecoster/chopper
 for item in //PATH/TO/TRIMMED_DIRECTORY/*; do
   barcode=$(basename "$item")
   barcode=${barcode%.fastq}
-  input_file="/PATH/TO/TRIMMED_DIRECTORY/${barcode}.fastq"
-  output_file="/PATH/TO/FILTERED_DIRECTORY/${barcode}.fastq"
+  input="/PATH/TO/TRIMMED_DIRECTORY/${barcode}.fastq"
+  output="/PATH/TO/FILTERED_DIRECTORY/${barcode}.fastq"
   echo "========== Filtering ${barcode} =========="
   chopper --quality 20 \
     --maxqual 50 \
     --minlength NUMBER \
     --maxlength NUMBER \
     --threads NUMBER \
-    --input ${input_file} > ${output_file}
+    --input ${input} > ${output}
 done
 ```
 
@@ -75,20 +75,21 @@ Software: Vsearch https://github.com/torognes/vsearch
 
 ```sh
 for item in /PATH/TO/FILTERED_FILES/*; do
-  barcode=${barcode%_.fastq}
-  input_file="/PATH/TO/FILTERED_DIRECTORY/${barcode}.fastq"
-  output_file="/PATH/TO/TRAMSFORMED_DIRECTORY/${barcode}.fasta"
-  echo "========== Transforming ${BARCODE} =========="
-  vsearch --fastq_filter ${input_file} \
+  barcode=$(basename "$item")
+  barcode=${barcode%.fastq}
+  input="/PATH/TO/FILTERED_DIRECTORY/${barcode}.fastq"
+  output="/PATH/TO/TRAMSFORMED_DIRECTORY/${barcode}.fasta"
+  echo "========== Transforming ${barcode} =========="
+  vsearch --fastq_filter ${input} \
     --fastq_ascii 33 \
     --fastq_qmax 50 \
-    --fastaout ${output_file} \
+    --fastaout ${output} \
     --relabel ${barcode}.
 done
 ```
 
 ```sh
-cat //PATH/TO/TRAMSFORMED_DIRECTORY/*。fasta \
+cat //PATH/TO/TRAMSFORMED_DIRECTORY/* \
     > /PATH/TO/TRAMSFORMED_DIRECTORY/POOL.fasta
 ```
 
