@@ -122,7 +122,7 @@ vsearch --uchime_denovo /PATH/TO/CLUSTERED_DIRECTORY/CLUSTER.fasta \
   --sizein \
   --sizeout \
   --relabel otu. \
-  --nonchimeras /PATH/TO/OUTPUT_DIRECTORY/OTU.fasta 
+  --nonchimeras /PATH/TO/REMOVED_DIRECTORY/OTU.fasta 
 ```
 
 ## Step 2.4 Count Table Generation
@@ -130,7 +130,7 @@ Software: Vsearch https://github.com/torognes/vsearch
 
 ```sh
 vsearch --usearch_global /PATH/TO/TRAMSFORMED_DIRECTORY/POOL.fasta \
-  --db /PATH/TO/OUTPUT_DIRECTORY/OTU.fasta \
+  --db /PATH/TO/REMOVED_DIRECTORY/OTU.fasta \
   --id 0.97 \
   --otutabout /PATH/TO/OUTPUT_DIRECTORY/COUNT_TABLE.tsv
 ```
@@ -141,7 +141,7 @@ Software: Qiime 2 https://amplicon-docs.qiime2.org/en/stable/
 ```sh
 Qiime tools import \
   --type 'FeatureData[Sequence]' \
-  --input-path /PATH/TO/OUTPUT_DIRECTORY/OTU.fasta \
+  --input-path /PATH/TO/REMOVED_DIRECTORY/OTU.fasta \
   --output-path /PATH/TO/TAXONOMY_DIRECTORY/OTU.qza
 ```
 
