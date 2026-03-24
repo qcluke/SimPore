@@ -120,8 +120,9 @@ Software: Vsearch https://github.com/torognes/vsearch
 ```sh
 vsearch --uchime_denovo /PATH/TO/CLUSTERED_DIRECTORY/CLUSTER.fasta \
   --sizein \
-  --nonchimeras /PATH/TO/OUTPUT_DIRECTORY/OTU.fasta \
-  --relabel otu.
+  --sizeout \
+  --relabel otu. \
+  --nonchimeras /PATH/TO/OUTPUT_DIRECTORY/OTU.fasta 
 ```
 
 ## Step 2.4 Count Table Generation
