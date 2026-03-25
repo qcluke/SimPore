@@ -132,7 +132,7 @@ Software: Vsearch https://github.com/torognes/vsearch
 vsearch --usearch_global /PATH/TO/TRAMSFORMED_DIRECTORY/POOL.fasta \
   --db /PATH/TO/REMOVED_DIRECTORY/OTU.fasta \
   --id 0.97 \
-  --otutabout /PATH/TO/OUTPUT_DIRECTORY/COUNT_TABLE.tsv
+  --otutabout /PATH/TO/TABLE_DIRECTORY/COUNT_TABLE.tsv
 ```
 
 ## Step 3.1 Consensus Sequence Import
@@ -184,7 +184,7 @@ Software: Qiime 2 https://amplicon-docs.qiime2.org/en/stable/
 ```sh
 qiime metadata tabulate \
   --m-input-file /PATH/TO/TAXONOMY_DIRECTORY/TAXONOMY.qza \
-  --o-visualization /PATH/TO/OUTPUT_DIRECTORY/TAXONOMIC_TABLE.qzv
+  --o-visualization /PATH/TO/TABLE_DIRECTORY/TAXONOMY_TABLE.qzv
 ```
 * Import TAXONOMIC_TABLE.qzv to QIIME 2 View (https://view.qiime2.org/) for tsv format
 
