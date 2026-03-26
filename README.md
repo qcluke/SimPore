@@ -21,7 +21,7 @@ dorado basecaller \
   --kit-name KIT \
   --emit-fastq \
   --no-trim \
-  --output-dir /PATH/TO/BASECALLED_DEMULTIPLXED_DIRECTORY/
+  --output-dir /PATH/TO/DEMULTIPLXED_DIRECTORY/
 
 ```
 * Remember to isolate unclassified file
@@ -32,7 +32,7 @@ Software: Cutadapt https://cutadapt.readthedocs.io/en/stable/
 ```sh
 for item in /PATH/TO/DEMULTIPLXED_DIRECTORY/*; do
   barcode=$(basename "$item")
-  input="/PATH/TO/BASECALLED_DEMULTIPLXED_DIRECTORY/${barcode}.fastq"
+  input="/PATH/TO/3.1DEMULTIPLXED_DIRECTORY/${barcode}.fastq"
   output="/PATH/TO/TRIMMED_DIRECTORY/${barcode}.fastq"
   log="PATH/TO/TRIMMED_DIRECTORY/LOG.txt"
   echo "========== Trimming ${barcode} =========="
@@ -62,7 +62,7 @@ for item in //PATH/TO/TRIMMED_DIRECTORY/*; do
   output="/PATH/TO/FILTERED_DIRECTORY/${barcode}.fastq"
   echo "========== Filtering ${barcode} =========="
   chopper --quality 20 \
-    --maxqual 50 \
+    --maxqual 50 \3.1
     --minlength NUMBER \
     --maxlength NUMBER \
     --threads NUMBER \
@@ -120,7 +120,6 @@ Software: Vsearch https://github.com/torognes/vsearch
 ```sh
 vsearch --uchime_denovo /PATH/TO/CLUSTERED_DIRECTORY/CLUSTER.fasta \
   --sizein \
-  --sizeout \
   --relabel otu. \
   --nonchimeras /PATH/TO/REMOVED_DIRECTORY/OTU.fasta 
 ```
@@ -139,13 +138,13 @@ vsearch --usearch_global /PATH/TO/TRAMSFORMED_DIRECTORY/POOL.fasta \
 Software: Qiime 2 https://amplicon-docs.qiime2.org/en/stable/
 
 ```sh
-Qiime tools import \
+qiime tools import \
   --type 'FeatureData[Sequence]' \
   --input-path /PATH/TO/REMOVED_DIRECTORY/OTU.fasta \
   --output-path /PATH/TO/TAXONOMY_DIRECTORY/OTU.qza
 ```
 
-## Step 3.2 Reference Datebase Extraction
+## Step 3.2 Reference Sequence Extraction
 Software: Qiime 2 https://amplicon-docs.qiime2.org/en/stable/
 
 ```sh
@@ -186,7 +185,7 @@ qiime metadata tabulate \
   --m-input-file /PATH/TO/TAXONOMY_DIRECTORY/TAXONOMY.qza \
   --o-visualization /PATH/TO/TABLE_DIRECTORY/TAXONOMY_TABLE.qzv
 ```
-* Import TAXONOMIC_TABLE.qzv to QIIME 2 View (https://view.qiime2.org/) for tsv format
+* Import the TAXONOMIC_TABLE.qzv to QIIME 2 View (https://view.qiime2.org/) for tsv format
 
 
 
