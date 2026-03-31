@@ -62,7 +62,7 @@ for item in //PATH/TO/TRIMMED_DIRECTORY/*; do
   output="/PATH/TO/FILTERED_DIRECTORY/${barcode}.fastq"
   echo "========== Filtering ${barcode} =========="
   chopper --quality 20 \
-    --maxqual 50 \3.1
+    --maxqual 50 \
     --minlength NUMBER \
     --maxlength NUMBER \
     --threads NUMBER \
@@ -70,7 +70,7 @@ for item in //PATH/TO/TRIMMED_DIRECTORY/*; do
 done
 ```
 
-## Step 2.1 Transformation and Dereplication
+## Step 2.1 Conversion and Dereplication
 Software: Vsearch https://github.com/torognes/vsearch
 
 ```sh
@@ -78,8 +78,8 @@ for item in /PATH/TO/FILTERED_FILES/*; do
   barcode=$(basename "$item")
   barcode=${barcode%.fastq}
   input="/PATH/TO/FILTERED_DIRECTORY/${barcode}.fastq"
-  output="/PATH/TO/TRAMSFORMED_DIRECTORY/${barcode}.fasta"
-  echo "========== Transforming ${barcode} =========="
+  output="/PATH/TO/CONVERTED_DIRECTORY/${barcode}.fasta"
+  echo "========== Converting ${barcode} =========="
   vsearch --fastq_filter ${input} \
     --fastq_ascii 33 \
     --fastq_qmax 50 \
@@ -89,12 +89,12 @@ done
 ```
 
 ```sh
-cat //PATH/TO/TRAMSFORMED_DIRECTORY/* \
-    > /PATH/TO/TRAMSFORMED_DIRECTORY/POOL.fasta
+cat //PATH/TO/CONVERTED_DIRECTORY/* \
+    > /PATH/TO/CONVERTED_DIRECTORY/POOL.fasta
 ```
 
 ```sh
-vsearch --derep_fulllength /PATH/TO/TRAMSFORMED_DIRECTORY/POOL.fasta \
+vsearch --derep_fulllength /PATH/TO/CONVERTED_DIRECTORY/POOL.fasta \
   --output /PATH/TO/DEREPLICATED_DIRECTORY/UNIQUE.fasta \
   --relabel unique. \
   --sizeout \
@@ -128,7 +128,7 @@ vsearch --uchime_denovo /PATH/TO/CLUSTERED_DIRECTORY/CLUSTER.fasta \
 Software: Vsearch https://github.com/torognes/vsearch
 
 ```sh
-vsearch --usearch_global /PATH/TO/TRAMSFORMED_DIRECTORY/POOL.fasta \
+vsearch --usearch_global /PATH/TO/CONVERTED_DIRECTORY/POOL.fasta \
   --db /PATH/TO/REMOVED_DIRECTORY/OTU.fasta \
   --id 0.97 \
   --otutabout /PATH/TO/TABLE_DIRECTORY/COUNT_TABLE.tsv
