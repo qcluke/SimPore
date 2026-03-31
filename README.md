@@ -8,7 +8,7 @@ Find SimPore in our paper
 ---------------
 
 ## Flowchart
-<img src="https://raw.githubusercontent.com/qcluke/SimPore/main/Flowchart.png" width="1000" />
+<img src="https://raw.githubusercontent.com/qcluke/SimPore/main/.png" width="1000" />
 
 ## Step 1.1 Basecalling and Demultiplexing
 Software: Dorado https://software-docs.nanoporetech.com/dorado/latest/
