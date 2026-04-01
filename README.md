@@ -153,7 +153,7 @@ qiime feature-classifier extract-reads \
   --p-f-primer FORWARD_PRIMER \
   --p-r-primer REVERSE_PRIMER \
   --p-n-jobs NUMBER \
-  --o-reads /PATH/TO/TAXONOMY_DIRECTORY/REFERENCE_SEQUENCE.qza 
+  --o-reads /PATH/TO/DATABASE_DIRECTORY/REFERENCE_SEQUENCE.qza 
 ```
 
 ## Step 3.3 Classifier Traning
@@ -161,8 +161,8 @@ Software: Qiime 2 https://amplicon-docs.qiime2.org/en/stable/
 
 ```sh
 qiime feature-classifier fit-classifier-naive-bayes \
-  --i-reference-reads /PATH/TO/TAXONOMY_DIRECTORY/REFERENCE_SEQUENCE.qza  \
-  --i-reference-taxonomy /PATH/TO/DATABASE_DIRECTORY/DATABSE_TAXONOMY.qza  \
+  --i-reference-reads /PATH/TO/DATABASE_DIRECTORY/REFERENCE_SEQUENCE.qza \
+  --i-reference-taxonomy /PATH/TO/DATABASE_DIRECTORY/DATABSE_TAXONOMY.qza \
   --o-classifier /PATH/TO/TAXONOMY_DIRECTORY/CLASSIFIER.qza
 ```
 
