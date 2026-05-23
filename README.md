@@ -1,5 +1,5 @@
 # SimPore
-A concise bioinformatic workflow for ONT amplicon processing, both short and long reads.
+A streamlined bioinformatic workflow for ONT amplicon processing, both short and long reads.
 
 Find SimPore in our paper
 
@@ -55,7 +55,7 @@ done
 Software: Chopper https://github.com/wdecoster/chopper
 
 ```sh
-for item in //PATH/TO/TRIMMED_DIRECTORY/*; do
+for item in /PATH/TO/TRIMMED_DIRECTORY/*; do
   barcode=$(basename "$item")
   barcode=${barcode%.fastq}
   input="/PATH/TO/TRIMMED_DIRECTORY/${barcode}.fastq"
@@ -89,7 +89,7 @@ done
 ```
 
 ```sh
-cat //PATH/TO/CONVERTED_DIRECTORY/* \
+cat /PATH/TO/CONVERTED_DIRECTORY/* \
     > /PATH/TO/CONVERTED_DIRECTORY/POOL.fasta
 ```
 
