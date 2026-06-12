@@ -71,7 +71,7 @@ done
 ```
 
 ## Step 2.1 Conversion and Dereplication
-Software: Vsearch https://github.com/torognes/vsearch
+Software: VSEARCH https://github.com/torognes/vsearch
 
 ```sh
 for item in /PATH/TO/FILTERED_FILES/*; do
@@ -102,7 +102,7 @@ vsearch --derep_fulllength /PATH/TO/CONVERTED_DIRECTORY/POOL.fasta \
 ```
 
 ## Step 2.2 Clustering
-Software: Vsearch https://github.com/torognes/vsearch
+Software: VSEARCH https://github.com/torognes/vsearch
 
 ```sh
 vsearch --cluster_size /PATH/TO/DEREPLICATED_DIRECTORY/UNIQUE.fasta \
@@ -115,7 +115,7 @@ vsearch --cluster_size /PATH/TO/DEREPLICATED_DIRECTORY/UNIQUE.fasta \
 ```
 
 ## Step 2.3 Chimera Removal
-Software: Vsearch https://github.com/torognes/vsearch
+Software: VSEARCH https://github.com/torognes/vsearch
 
 ```sh
 vsearch --uchime_denovo /PATH/TO/CLUSTERED_DIRECTORY/CLUSTER.fasta \
@@ -125,7 +125,7 @@ vsearch --uchime_denovo /PATH/TO/CLUSTERED_DIRECTORY/CLUSTER.fasta \
 ```
 
 ## Step 2.4 Count Table Generation
-Software: Vsearch https://github.com/torognes/vsearch
+Software: VSEARCH https://github.com/torognes/vsearch
 
 ```sh
 vsearch --usearch_global /PATH/TO/CONVERTED_DIRECTORY/POOL.fasta \
